@@ -1,0 +1,55 @@
+{
+  "licenses": {
+    "YAZ-DEMO-1234-TEST": {
+      "serial": "YAZ-DEMO-1234-TEST",
+      "credits": 3,
+      "max_credits": 3,
+      "device_id": null,
+      "note": "Demo serial - 3 credits for testing",
+      "status": "active",
+      "hwid": null,
+      "created_at": "2026-01-01T00:00:00.000Z",
+      "expires_at": null,
+      "history": []
+    },
+    "YAZ-ABCD-EFGH-IJKL": {
+      "serial": "YAZ-ABCD-EFGH-IJKL",
+      "credits": 10,
+      "max_credits": 10,
+      "device_id": null,
+      "note": "VIP customer example",
+      "status": "active",
+      "hwid": null,
+      "created_at": "2026-01-01T00:00:00.000Z",
+      "expires_at": null,
+      "history": []
+    }
+  },
+  "devices": [
+    {
+      "id": "vivo-y93-pd1818f",
+      "name": "VIVO Y93 PD1818F",
+      "credits_cost": 3
+    },
+    {
+      "id": "xiaomi-redmi9t-lime",
+      "name": "XIAOMI REDMI 9T (LIME)",
+      "credits_cost": 3
+    },
+    {
+      "id": "xiaomi-redmi5-rosy",
+      "name": "XIAOMI REDMI 5 (ROSY)",
+      "credits_cost": 3
+    },
+    {
+      "id": "xiaomi-redmi7-lavender",
+      "name": "XIAOMI REDMI NOTE 7 (LAVENDER)",
+      "credits_cost": 3
+    }
+  ],
+  "stats": {
+    "total_licenses": 2,
+    "total_operations": 0,
+    "total_credits_used": 0
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "yaz-qualcomm-server",
+  "version": "1.0.0",
+  "description": "YAZ Qualcomm OneclickTool - License Server for Vercel",
+  "main": "api/verify.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "vercel dev"
+  },
+  "keywords": ["yaz", "qualcomm", "license", "vercel"],
+  "author": "YAZ <https://t.me/Yazunlo> Instagram: yaz.salaqq",
+  "license": "MIT",
+  "dependencies": {}
+}

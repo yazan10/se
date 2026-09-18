@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YAZ Qualcomm Tool - Server</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:#0a0a0a;color:#fff;min-height:100vh;}
+.bg{position:fixed;inset:0;background:radial-gradient(ellipse at 30% 20%, rgba(204,0,19,0.15), transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(60,0,10,0.2), transparent 40%), #0a0a0a;z-index:-1}
+nav{padding:20px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222}
+.logo{font-weight:900;font-size:22px;letter-spacing:2px}
+.logo span{color:#cc0013}
+.nav-links a{color:#aaa;text-decoration:none;margin-left:20px;font-size:14px;transition:0.2s}
+.nav-links a:hover{color:#fff}
+.hero{max-width:1000px;margin:60px auto;padding:0 20px;text-align:center}
+.hero h1{font-size:48px;font-weight:900;line-height:1.2;margin-bottom:15px}
+.hero h1 span{background: linear-gradient(90deg,#cc0013,#ff3344);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:#888;font-size:16px;line-height:1.8;max-width:700px;margin:0 auto 30px}
+.btn{display:inline-block;background: linear-gradient(90deg,#cc0013,#90000e);color:#fff;padding:14px 32px;border-radius:10px;text-decoration:none;font-weight:700;margin:8px;transition:0.2s;box-shadow:0 5px 20px rgba(204,0,19,0.3)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(204,0,19,0.4)}
+.btn.outline{background:transparent;border:1px solid #333;box-shadow:none}
+.btn.outline:hover{border-color:#cc0013;color:#ff3344;background:rgba(204,0,19,0.1)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:1000px;margin:50px auto;padding:0 20px}
+.card{background:rgba(255,255,255,0.03);border:1px solid #222;border-radius:16px;padding:25px;backdrop-filter:blur(10px)}
+.card h3{font-size:15px;margin-bottom:8px;color:#ff3344}
+.card p{color:#aaa;font-size:13px;line-height:1.6}
+.card .price{font-size:28px;font-weight:900;margin:10px 0}
+.card .code{font-family:'JetBrains Mono',monospace;background:#1a1a1a;padding:10px;border-radius:8px;font-size:12px;color:#00ff88;margin-top:10px;word-break:break-all}
+.status{max-width:1000px;margin:40px auto;padding:20px;background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);border-radius:12px;display:flex;align-items:center;gap:15px}
+.status .dot{width:12px;height:12px;background:#00ff88;border-radius:50%;box-shadow:0 0 10px #00ff88;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.devices{max-width:1000px;margin:40px auto;padding:0 20px}
+.devices h2{font-size:20px;margin-bottom:15px}
+.device-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+.device{background:#161616;border:1px solid #222;border-radius:12px;padding:18px;display:flex;justify-content:space-between;align-items:center}
+.device .name{font-weight:700;font-size:14px}
+.device .id{font-size:11px;color:#666;font-family:'JetBrains Mono',monospace}
+.device .badge{background:rgba(204,0,19,0.15);color:#ff3344;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700}
+footer{text-align:center;padding:40px;color:#555;font-size:12px;border-top:1px solid #111;margin-top:60px}
+footer a{color:#ff3344;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<nav>
+  <div class="logo">YAZ <span>TOOL</span></div>
+  <div class="nav-links">
+    <a href="/admin.html">لوحة التحكم</a>
+    <a href="https://t.me/Yazunlo" target="_blank">Telegram</a>
+    <a href="https://www.instagram.com/yaz.salaqq" target="_blank">Instagram</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>YAZ <span>Qualcomm</span><br>Oneclick Tool Server</h1>
+  <p>
+    سيرفر الترخيص الرسمي لأداة كوالكوم بنقرة واحدة<br>
+    كل جهاز = <b style="color:#fff">3 كريدت = 3$</b> — نظام آمن وسريع على Vercel
+  </p>
+  <a href="/admin.html" class="btn">🚀 دخول لوحة التحكم</a>
+  <a href="https://t.me/Yazunlo" target="_blank" class="btn outline">📩 تواصل معنا</a>
+</section>
+
+<div class="status" id="serverStatus">
+  <div class="dot"></div>
+  <div>
+    <div style="font-weight:700;font-size:14px">السيرفر يعمل بنجاح ✅</div>
+    <div style="font-size:12px;color:#888" id="statusDetail">جاري فحص الحالة...</div>
+  </div>
+  <div style="margin-right:auto;font-family:'JetBrains Mono',monospace;font-size:12px;color:#00ff88" id="serverUrl"></div>
+</div>
+
+<div class="cards">
+  <div class="card">
+    <h3>💳 سعر الجهاز</h3>
+    <div class="price">3$ <span style="font-size:14px;color:#888">/ 3 Credits</span></div>
+    <p>كل سيريال يأتي بـ 3 كريدت تكفي لـ 3 عمليات (FRP, Factory, Unlock...). كل عملية = 1 كريدت.</p>
+    <div class="code">YAZ-XXXX-XXXX-XXXX</div>
+  </div>
+  <div class="card">
+    <h3>🔐 آمن ومشفر</h3>
+    <p>التحقق عبر HWID + سيريال مشفر، كل سيريال مرتبط بجهاز العميل. دعم Vercel KV للاستمرارية.</p>
+    <p style="margin-top:12px;color:#00ff88;font-size:12px">✓ يعمل بدون تغيير أوامر exec.cmd</p>
+  </div>
+  <div class="card">
+    <h3>⚡ سرعة فائقة</h3>
+    <p>سيرفر Vercel Edge Network - استجابة أقل من 100ms في جميع أنحاء العالم. لا يحتاج سيرفر خارجي.</p>
+    <p style="margin-top:12px;color:#aaa;font-size:12px">API: <code style="background:#222;padding:2px 6px;border-radius:4px">POST /api/verify</code></p>
+  </div>
+</div>
+
+<section class="devices">
+  <h2>📱 الأجهزة المدعومة</h2>
+  <div class="device-grid" id="deviceGrid">
+    <!-- Filled by JS -->
+  </div>
+</section>
+
+<footer>
+  جميع الحقوق محفوظة لـ <b>YAZ</b> 2026<br>
+  <a href="https://t.me/Yazunlo">Telegram: @Yazunlo</a> &nbsp;|&nbsp; <a href="https://www.instagram.com/yaz.salaqq">Instagram: yaz.salaqq</a><br>
+  Original Tool by HadiKhoirudin - Modified by YAZ
+</footer>
+
+<script>
+async function load() {
+  document.getElementById('serverUrl').textContent = window.location.origin;
+  try {
+    const r = await fetch('/api/health');
+    const j = await r.json();
+    document.getElementById('statusDetail').textContent = `Version ${j.version} • ${new Date(j.timestamp).toLocaleString('ar-EG')} • ${j.service}`;
+  } catch {
+    document.getElementById('statusDetail').textContent = 'تعذر الاتصال بـ /api/health';
+  }
+  try {
+    const r = await fetch('/api/admin/devices');
+    const j = await r.json();
+    const grid = document.getElementById('deviceGrid');
+    grid.innerHTML = j.devices.map(d=>`
+      <div class="device">
+        <div>
+          <div class="name">${d.name}</div>
+          <div class="id">${d.id}</div>
+        </div>
+        <div class="badge">${d.credits_cost} كريدت</div>
+      </div>
+    `).join('');
+  } catch {}
+}
+load();
+</script>
+</body>
+</html>

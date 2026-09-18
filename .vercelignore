@@ -1,0 +1,13 @@
+__pycache__
+*.pyc
+*.exe
+*.elf
+*.bin
+*.img
+data/loader.elf
+data/emmcdl.exe
+data/persist.img
+picture/*
+*.png
+*.ico
+*.otf
