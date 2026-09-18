@@ -2,7 +2,7 @@
 
 سيرفر ترخيص احترافي لأداة كوالكوم - كل جهاز = **3 كريدت = 3$** — مبني لـ Vercel Serverless بدون سيرفر خارجي.
 
-**المطور:** YAZ | [Telegram: @Yazunlo](https://t.me/Yazunlo) | [Instagram: yaz.salaqq](https://www.instagram.com/yaz.salaqq)
+**المطور:** YAZ | [Telegram: @YAZsalaq](https://t.me/YAZsalaq) | [Instagram: yaz.salaqq](https://www.instagram.com/yaz.salaqq)
 
 ---
 
@@ -143,7 +143,7 @@ pip install requests PyQt5
 
 ## 📞 الدعم
 
-- Telegram: https://t.me/Yazunlo
+- Telegram: https://t.me/YAZsalaq
 - Instagram: https://www.instagram.com/yaz.salaqq
 
 جميع الحقوق محفوظة لـ **YAZ** 2026

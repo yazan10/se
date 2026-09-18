@@ -3,7 +3,7 @@
 // Body: { serial, device_id, operation, hwid }
 // Operation: -reset_frp, -reset_factory, -unlock_bl, etc. | check | activate
 // Each operation costs 1 credit, device activation = 3 credits total
-// Developer: YAZ | t.me/Yazunlo | yaz.salaqq
+// Developer: YAZ | t.me/YAZsalaq | yaz.salaqq
 
 const { loadDB, saveDB } = require('../lib/db');
 const { setCors, handleOptions, jsonResponse } = require('../lib/utils');
@@ -43,15 +43,22 @@ module.exports = async (req, res) => {
     // Find license
     const lic = db.licenses[serial];
     if (!lic) {
-      return jsonResponse(res, 404, { success: false, message: 'السيريال غير موجود ❌', credits: 0 });
+      return jsonResponse(res, 404, { 
+        success: false, 
+        message: '⚠️ يرجى تسجيل السيريال - السيريال غير موجود ❌\nسعر الخدمة: 3 دولار (3 كريدت)\nتواصل: https://t.me/YAZsalaq', 
+        credits: 0,
+        price: '3$ = 3 كريدت',
+        contact: 'https://t.me/YAZsalaq',
+        telegram_icon: 'https://t.me/YAZsalaq'
+      });
     }
 
     if (lic.status === 'blocked' || lic.status === 'disabled') {
-      return jsonResponse(res, 403, { success: false, message: 'السيريال محظور ❌', credits: lic.credits });
+      return jsonResponse(res, 403, { success: false, message: 'السيريال محظور ❌\nتواصل: https://t.me/YAZsalaq', credits: lic.credits, contact: 'https://t.me/YAZsalaq' });
     }
 
     if (lic.status === 'expired') {
-      return jsonResponse(res, 403, { success: false, message: 'السيريال منتهي ❌', credits: 0 });
+      return jsonResponse(res, 403, { success: false, message: 'السيريال منتهي ❌\nسعر الخدمة: 3$ - https://t.me/YAZsalaq', credits: 0, contact: 'https://t.me/YAZsalaq' });
     }
 
     // Check expiration by date if exists
@@ -94,7 +101,14 @@ module.exports = async (req, res) => {
 
     // For actual operations, check credits
     if (lic.credits <= 0) {
-      return jsonResponse(res, 402, { success: false, message: 'انتهى الكريدت ❌ الرصيد 0 - يرجى شراء سيريال جديد', credits: 0, price: '3$ = 3 كريدت', contact: 'https://t.me/Yazunlo' });
+      return jsonResponse(res, 402, { 
+        success: false, 
+        message: '⚠️ انتهى الكريدت ❌ الرصيد 0\nيرجى تسجيل سيريال جديد - سعر الخدمة: 3 دولار\nتواصل: https://t.me/YAZsalaq', 
+        credits: 0, 
+        price: '3$ = 3 كريدت', 
+        contact: 'https://t.me/YAZsalaq',
+        telegram_icon: 'https://t.me/YAZsalaq'
+      });
     }
 
     // Optional HWID check - if strict, enforce binding

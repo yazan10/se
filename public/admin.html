@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YAZ - لوحة التحكم</title>
+<title>YAZ - لوحة تحكم السيريالات</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -12,192 +12,138 @@ a{color:#ff3344;text-decoration:none}
 .topbar{height:60px;background:#111;border-bottom:1px solid #222;display:flex;align-items:center;padding:0 20px;justify-content:space-between;position:sticky;top:0;z-index:100}
 .topbar .logo{font-weight:900;font-size:18px;letter-spacing:1px}
 .topbar .logo span{color:#cc0013}
-.topbar .right{display:flex;gap:10px;align-items:center}
 .btn{padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-family:'Tajawal';font-weight:700;font-size:13px;transition:0.2s}
 .btn-primary{background:linear-gradient(90deg,#cc0013,#90000e);color:#fff}
 .btn-primary:hover{opacity:0.9}
 .btn-ghost{background:#1a1a1a;color:#aaa;border:1px solid #222}
 .btn-ghost:hover{background:#222;color:#fff}
-.btn-sm{padding:5px 10px;font-size:11px;border-radius:6px}
-.input{width:100%;background:#1a1a1a;border:1px solid #222;color:#fff;padding:10px 12px;border-radius:8px;font-family:'Tajawal';font-size:13px;outline:none;transition:0.2s}
+.btn-sm{padding:6px 12px;font-size:11px;border-radius:6px}
+.input{width:100%;background:#1a1a1a;border:1px solid #222;color:#fff;padding:10px 12px;border-radius:8px;font-family:'Tajawal';font-size:13px;outline:none}
 .input:focus{border-color:#cc0013;background:#1e1e1e}
-.container{max-width:1200px;margin:20px auto;padding:0 20px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:20px}
-.stat{background:linear-gradient(135deg,#161616,#111);border:1px solid #222;border-radius:12px;padding:16px}
-.stat .label{font-size:11px;color:#888;margin-bottom:6px}
-.stat .value{font-size:22px;font-weight:900}
-.stat .sub{font-size:11px;color:#666}
-.stat.active{border-color:rgba(0,255,136,0.2)}
-.stat.active .value{color:#00ff88}
-.stat.warn .value{color:#ffaa00}
-.stat.danger .value{color:#ff3344}
-.card{background:#111;border:1px solid #222;border-radius:12px;padding:18px;margin-bottom:18px}
-.card h3{font-size:14px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.container{max-width:900px;margin:20px auto;padding:0 20px}
+.card{background:#111;border:1px solid #222;border-radius:12px;padding:20px;margin-bottom:18px}
+.card h3{font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.card h3 span{color:#888;font-weight:400;font-size:11px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media(max-width:700px){.grid2{grid-template-columns:1fr}}
 .table-wrap{overflow-x:auto;border-radius:10px;border:1px solid #222}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:700px}
-th{background:#1a1a1a;color:#aaa;font-weight:700;padding:10px 12px;text-align:right;font-size:11px;white-space:nowrap}
-td{padding:10px 12px;border-top:1px solid #1a1a1a;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:600px}
+th{background:#1a1a1a;color:#aaa;font-weight:700;padding:11px 12px;text-align:right;font-size:11px}
+td{padding:11px 12px;border-top:1px solid #1a1a1a}
 tr:hover td{background:rgba(255,255,255,0.02)}
-.badge{padding:3px 8px;border-radius:20px;font-size:10px;font-weight:700;display:inline-block}
+.badge{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;display:inline-block}
 .badge-active{background:rgba(0,255,136,0.12);color:#00ff88;border:1px solid rgba(0,255,136,0.2)}
-.badge-blocked{background:rgba(255,50,50,0.12);color:#ff5555;border:1px solid rgba(255,50,50,0.2)}
-.badge-expired{background:rgba(255,170,0,0.12);color:#ffaa00}
 .badge-empty{background:rgba(255,50,50,0.15);color:#ff6666}
 .mono{font-family:'JetBrains Mono',monospace;font-size:11px}
-.actions{display:flex;gap:5px}
-.icon-btn{width:28px;height:28px;border-radius:6px;border:1px solid #222;background:#1a1a1a;color:#aaa;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:0.2s}
+.actions{display:flex;gap:6px}
+.icon-btn{padding:6px 10px;border-radius:6px;border:1px solid #222;background:#1a1a1a;color:#aaa;cursor:pointer;font-size:11px;transition:0.2s}
 .icon-btn:hover{background:#222;color:#fff}
 .icon-btn.danger:hover{background:rgba(255,50,50,0.15);color:#ff5555;border-color:rgba(255,50,50,0.3)}
 .login-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;z-index:999}
 .login-box{background:#161616;border:1px solid #222;border-radius:16px;padding:30px;width:90%;max-width:380px;text-align:center}
-.login-box h2{margin-bottom:8px}
-.login-box p{color:#888;font-size:12px;margin-bottom:15px}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:500}
 .modal.active{display:flex}
-.modal-box{background:#161616;border:1px solid #222;border-radius:16px;padding:20px;width:90%;max-width:500px;max-height:90vh;overflow:auto}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid #333;color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,0.5);display:none;z-index:9999;max-width:90%}
-.toast.show{display:block;animation:slideUp 0.3s}
-@keyframes slideUp{from{transform:translate(-50%,20px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
-.search-row{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
-.history-list{max-height:300px;overflow:auto}
-.history-item{background:#1a1a1a;border:1px solid #222;border-radius:8px;padding:10px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;font-size:11px}
+.modal-box{background:#161616;border:1px solid #222;border-radius:16px;padding:20px;width:90%;max-width:450px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid #333;color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,0.5);display:none;z-index:9999}
+.toast.show{display:block}
+.telegram-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(90deg,#0088cc,#00aaff);color:#fff;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none}
+.telegram-btn:hover{opacity:0.9}
 </style>
 </head>
 <body>
 
 <div class="login-overlay" id="loginOverlay">
   <div class="login-box">
-    <div style="font-size:32px;margin-bottom:10px">🔐</div>
+    <div style="font-size:36px;margin-bottom:10px">🔐</div>
     <h2>YAZ لوحة التحكم</h2>
-    <p>ادخل مفتاح الادمن (ADMIN_KEY)<br><code style="background:#222;padding:2px 6px;border-radius:4px;color:#00ff88">jana@#5Y</code></p>
-    <input id="adminKeyInput" class="input" type="password" placeholder="Admin Key" style="text-align:center;margin-bottom:12px">
+    <p style="color:#888;font-size:11px;margin:8px 0 14px">ادخل باسورد الادمن<br><code style="background:#222;padding:2px 8px;border-radius:4px;color:#00ff88">jana@#5Y</code></p>
+    <input id="adminKeyInput" class="input" type="password" placeholder="Admin Password" style="text-align:center;margin-bottom:12px">
     <button class="btn btn-primary" style="width:100%" onclick="login()">دخول</button>
-    <p style="margin-top:12px">التيليجرام: <a href="https://t.me/Yazunlo" target="_blank">@Yazunlo</a> | الانستا: <a href="https://www.instagram.com/yaz.salaqq" target="_blank">yaz.salaqq</a></p>
+    <p style="margin-top:12px;font-size:11px"><a href="https://t.me/YAZsalaq" target="_blank" class="telegram-btn">📩 @YAZsalaq</a></p>
     <div id="loginError" style="color:#ff5555;font-size:11px;margin-top:8px"></div>
   </div>
 </div>
 
 <div class="topbar">
-  <div class="logo">YAZ <span>ADMIN</span> <span style="font-weight:400;font-size:11px;color:#666">• كل جهاز 3 كريدت = 3$</span></div>
-  <div class="right">
+  <div class="logo">YAZ <span>ADMIN</span> <span style="font-weight:400;font-size:11px;color:#666">• 3$ لكل جهاز</span></div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <a href="https://t.me/YAZsalaq" target="_blank" class="telegram-btn" style="padding:6px 12px">📩 YAZsalaq</a>
     <span id="adminKeyDisplay" class="mono" style="color:#666;font-size:10px"></span>
     <button class="btn btn-ghost btn-sm" onclick="logout()">خروج</button>
-    <a href="/" class="btn btn-ghost btn-sm">الرئيسية</a>
   </div>
 </div>
 
 <div class="container">
 
-  <div class="stats" id="statsGrid">
-    <div class="stat active"><div class="label">اجمالي السيريالات</div><div class="value" id="stTotal">-</div><div class="sub">Total Licenses</div></div>
-    <div class="stat"><div class="label">نشطة</div><div class="value" id="stActive" style="color:#00ff88">-</div><div class="sub">Active</div></div>
-    <div class="stat warn"><div class="label">كريدت منخفض (1)</div><div class="value" id="stLow">-</div><div class="sub">Low Credits</div></div>
-    <div class="stat danger"><div class="label">منتهية (0)</div><div class="value" id="stEmpty">-</div><div class="sub">Empty</div></div>
-    <div class="stat"><div class="label">اجمالي الكريدت المستخدم</div><div class="value" id="stUsed">-</div><div class="sub">Total Used</div></div>
-    <div class="stat"><div class="label">الكريدت المتبقي</div><div class="value" id="stRemain">-</div><div class="sub">Remaining</div></div>
-  </div>
-
+  <!-- تسجيل سيريال جديد - مبسط -->
   <div class="card">
-    <h3>➕ انشاء سيريال جديد <span style="font-weight:400;color:#888;font-size:11px">— كل سيريال 3 كريدت افتراضياً</span></h3>
+    <h3>➕ تسجيل سيريال جديد <span>— كل سيريال 3 كريدت = 3$</span></h3>
     <div class="grid2">
       <div>
-        <label style="font-size:11px;color:#aaa">عدد السيريالات</label>
-        <input id="countInput" class="input" type="number" value="1" min="1" max="100">
-      </div>
-      <div>
-        <label style="font-size:11px;color:#aaa">الكريدت لكل سيريال</label>
-        <input id="creditsInput" class="input" type="number" value="3" min="1" max="100">
-      </div>
-      <div>
-        <label style="font-size:11px;color:#aaa">سيريال يدوي (اختياري)</label>
-        <input id="serialInput" class="input" placeholder="YAZ-XXXX-XXXX-XXXX (اتركه فارغ للتلقائي)">
+        <label style="font-size:11px;color:#aaa">السيريال (اتركه فارغ للتلقائي YAZ-XXXX-XXXX-XXXX)</label>
+        <input id="serialInput" class="input" placeholder="YAZ-XXXX-XXXX-XXXX">
       </div>
       <div>
         <label style="font-size:11px;color:#aaa">ملاحظة / اسم الزبون</label>
-        <input id="noteInput" class="input" placeholder="مثال: زبون احمد - Redmi 9T">
+        <input id="noteInput" class="input" placeholder="مثال: أحمد - Redmi 9T">
       </div>
     </div>
-    <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="createLicense()">✨ انشاء سيريال</button>
+    <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;align-items:center">
+      <button class="btn btn-primary" onclick="createLicense()">✨ تسجيل سيريال</button>
       <button class="btn btn-ghost" onclick="createLicense(5)">+5 سيريالات</button>
       <button class="btn btn-ghost" onclick="createLicense(10)">+10 سيريالات</button>
-      <span style="font-size:11px;color:#666;align-self:center">السعر: 3$ لكل 3 كريدت</span>
+      <span style="font-size:11px;color:#666">سعر الخدمة: 3$ لكل سيريال</span>
     </div>
-    <div id="createResult" style="margin-top:12px"></div>
+    <div id="createResult" style="margin-top:14px"></div>
   </div>
 
+  <!-- جدول السيريالات - فقط تسجيل / تعديل / حذف -->
   <div class="card">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">
-      <h3 style="margin:0">📋 السيريالات</h3>
-      <div class="search-row" style="margin:0">
-        <input id="searchInput" class="input" placeholder="بحث: سيريال / ملاحظة / HWID" style="width:220px" oninput="filterTable()">
-        <select id="filterStatus" class="input" style="width:130px" onchange="filterTable()">
-          <option value="">الكل</option>
-          <option value="active">نشط</option>
-          <option value="blocked">محظور</option>
-          <option value="empty">منتهي</option>
-        </select>
-        <button class="btn btn-ghost btn-sm" onclick="loadLicenses()">🔄 تحديث</button>
-        <button class="btn btn-ghost btn-sm" onclick="exportCSV()">📥 تصدير CSV</button>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px">
+      <h3 style="margin:0">📋 السيريالات المسجلة <span id="countLabel" style="background:#1a1a1a;padding:2px 8px;border-radius:20px;font-size:11px"></span></h3>
+      <div style="display:flex;gap:8px">
+        <input id="searchInput" class="input" placeholder="بحث: سيريال / ملاحظة" style="width:200px" oninput="filterTable()">
+        <button class="btn btn-ghost btn-sm" onclick="loadLicenses()">🔄</button>
       </div>
     </div>
     <div class="table-wrap">
-      <table id="licTable">
+      <table>
         <thead>
           <tr>
             <th>السيريال</th>
-            <th>الكريدت</th>
-            <th>الحالة</th>
-            <th>HWID</th>
-            <th>الملاحظة</th>
-            <th>تاريخ الانشاء</th>
-            <th>اجراءات</th>
+            <th>الكريدت المتبقي</th>
+            <th>ملاحظة</th>
+            <th>تاريخ التسجيل</th>
+            <th>إجراءات</th>
           </tr>
         </thead>
         <tbody id="licBody">
-          <tr><td colspan="7" style="text-align:center;padding:30px;color:#666">جاري التحميل...</td></tr>
+          <tr><td colspan="5" style="text-align:center;padding:30px;color:#666">جاري التحميل...</td></tr>
         </tbody>
       </table>
     </div>
-  </div>
-
-  <div class="card">
-    <h3>📊 آخر العمليات</h3>
-    <div id="recentOps" style="font-size:12px;color:#888">جاري التحميل...</div>
+    <p style="font-size:11px;color:#666;margin-top:10px">💳 كل جهاز يستهلك 1 كريدت لكل عملية. عند انتهاء 3 كريدت يجب تسجيل سيريال جديد.</p>
   </div>
 
 </div>
 
-<!-- History Modal -->
-<div class="modal" id="historyModal">
-  <div class="modal-box">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-      <h3 id="historyTitle" class="mono">History</h3>
-      <button class="btn btn-ghost btn-sm" onclick="closeModal('historyModal')">✕</button>
-    </div>
-    <div id="historyContent" class="history-list"></div>
-  </div>
-</div>
-
-<!-- Edit Modal -->
+<!-- نافذة تعديل -->
 <div class="modal" id="editModal">
   <div class="modal-box">
-    <h3 style="margin-bottom:12px">✏️ تعديل السيريال</h3>
+    <h3 style="margin-bottom:14px">✏️ تعديل السيريال</h3>
     <input id="editSerial" type="hidden">
-    <div style="display:grid;gap:10px">
-      <div><label style="font-size:11px;color:#aaa">الكريدت الحالي</label><input id="editCredits" class="input" type="number"></div>
+    <div style="display:grid;gap:12px">
+      <div><label style="font-size:11px;color:#aaa">السيريال</label><input id="editSerialDisplay" class="input" disabled style="opacity:0.6"></div>
+      <div><label style="font-size:11px;color:#aaa">الكريدت المتبقي</label><input id="editCredits" class="input" type="number" min="0" max="100"></div>
       <div><label style="font-size:11px;color:#aaa">الحالة</label>
-        <select id="editStatus" class="input"><option value="active">active</option><option value="blocked">blocked</option><option value="expired">expired</option></select>
+        <select id="editStatus" class="input"><option value="active">نشط ✅</option><option value="blocked">محظور ❌</option></select>
       </div>
       <div><label style="font-size:11px;color:#aaa">ملاحظة</label><input id="editNote" class="input"></div>
       <div style="display:flex;gap:8px">
-        <button class="btn btn-primary" style="flex:1" onclick="saveEdit()">حفظ</button>
+        <button class="btn btn-primary" style="flex:1" onclick="saveEdit()">💾 حفظ التعديل</button>
         <button class="btn btn-ghost" onclick="addCredits(3)">+3 كريدت</button>
-        <button class="btn btn-ghost" onclick="addCredits(10)">+10</button>
       </div>
-      <button class="btn btn-ghost" onclick="closeModal('editModal')">الغاء</button>
+      <button class="btn btn-ghost" onclick="closeModal('editModal')">إغلاق</button>
     </div>
   </div>
 </div>
@@ -215,32 +161,28 @@ function toast(msg, isError){
   t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),3000);
 }
-
 function login(){
   const k=document.getElementById('adminKeyInput').value.trim();
-  if(!k){ document.getElementById('loginError').textContent='ادخل المفتاح'; return; }
+  if(!k){ document.getElementById('loginError').textContent='ادخل الباسورد'; return; }
   ADMIN_KEY=k;
   localStorage.setItem('YAZ_ADMIN_KEY',k);
-  // test
   fetch('/api/admin/licenses',{headers:{'X-Admin-Key':k}}).then(r=>{
-    if(r.status===401){ document.getElementById('loginError').textContent='مفتاح خاطئ ❌'; localStorage.removeItem('YAZ_ADMIN_KEY'); }
-    else { document.getElementById('loginOverlay').style.display='none'; document.getElementById('adminKeyDisplay').textContent='Key: '+k.slice(0,4)+'***'; loadAll(); }
+    if(r.status===401){ document.getElementById('loginError').textContent='باسورد خاطئ ❌'; localStorage.removeItem('YAZ_ADMIN_KEY'); }
+    else { document.getElementById('loginOverlay').style.display='none'; document.getElementById('adminKeyDisplay').textContent='● متصل'; loadLicenses(); }
   }).catch(()=>{ document.getElementById('loginError').textContent='فشل الاتصال'; });
 }
 function logout(){ localStorage.removeItem('YAZ_ADMIN_KEY'); location.reload(); }
 function checkLogin(){
   if(ADMIN_KEY){
     document.getElementById('adminKeyInput').value=ADMIN_KEY;
-    // auto try
     fetch('/api/admin/licenses',{headers:{'X-Admin-Key':ADMIN_KEY}}).then(r=>{
-      if(r.ok){ document.getElementById('loginOverlay').style.display='none'; document.getElementById('adminKeyDisplay').textContent='Key: '+ADMIN_KEY.slice(0,4)+'***'; loadAll(); }
+      if(r.ok){ document.getElementById('loginOverlay').style.display='none'; document.getElementById('adminKeyDisplay').textContent='● متصل'; loadLicenses(); }
       else { document.getElementById('loginOverlay').style.display='flex'; }
     });
   } else {
     document.getElementById('loginOverlay').style.display='flex';
   }
 }
-
 async function api(path, opts={}){
   opts.headers = {...(opts.headers||{}), 'X-Admin-Key': ADMIN_KEY, 'Content-Type':'application/json'};
   const r= await fetch(path, opts);
@@ -248,115 +190,68 @@ async function api(path, opts={}){
   if(!r.ok) throw new Error(j.message||r.statusText);
   return j;
 }
-
-async function loadAll(){
-  loadStats();
-  loadLicenses();
-}
-
-async function loadStats(){
-  try{
-    const j= await api('/api/admin/stats');
-    const s=j.stats;
-    document.getElementById('stTotal').textContent=s.total_licenses;
-    document.getElementById('stActive').textContent=s.active;
-    document.getElementById('stLow').textContent=s.lowCredits;
-    document.getElementById('stEmpty').textContent=s.empty;
-    document.getElementById('stUsed').textContent=s.used;
-    document.getElementById('stRemain').textContent=s.totalCredits;
-    // recent
-    const recent=j.recent_operations||[];
-    document.getElementById('recentOps').innerHTML = recent.length? recent.map(o=>`
-      <div class="history-item">
-        <div><b class="mono">${o.serial}</b> <span style="color:#ff3344">${o.operation}</span> <span style="color:#666">${o.device_id}</span></div>
-        <div style="color:#aaa">${new Date(o.timestamp).toLocaleString('ar-EG')}</div>
-      </div>
-    `).join('') : '<div style="color:#666;text-align:center;padding:20px">لا يوجد عمليات بعد</div>';
-  }catch(e){ console.log(e); }
-}
-
 async function loadLicenses(){
   try{
     const j= await api('/api/admin/licenses');
     ALL_LICENSES=j.licenses||[];
+    document.getElementById('countLabel').textContent = ALL_LICENSES.length + ' سيريال';
     renderTable(ALL_LICENSES);
   }catch(e){ toast(e.message, true); }
 }
-
 function renderTable(list){
   const tbody=document.getElementById('licBody');
-  if(!list.length){ tbody.innerHTML='<tr><td colspan=7 style="text-align:center;padding:20px;color:#666">لا يوجد سيريالات</td></tr>'; return; }
+  if(!list.length){ tbody.innerHTML='<tr><td colspan=5 style="text-align:center;padding:30px;color:#666">لا يوجد سيريالات - سجل أول سيريال أعلاه</td></tr>'; return; }
   tbody.innerHTML = list.map(l=>{
-    const creditsClass = l.credits===0?'badge-empty': l.credits<=1?'badge-expired':'badge-active';
-    const statusBadge = l.status==='blocked'?'<span class="badge badge-blocked">محظور</span>': l.credits===0?'<span class="badge badge-empty">منتهي</span>': '<span class="badge badge-active">نشط</span>';
+    const creditsClass = l.credits===0?'badge-empty':'badge-active';
+    const creditsText = l.credits + ' / ' + l.max_credits;
     return `<tr>
-      <td class="mono" style="font-weight:700;color:#00ff88">${l.serial} <button onclick="copySerial('${l.serial}')" style="background:none;border:none;cursor:pointer;color:#666;font-size:10px" title="نسخ">📋</button></td>
-      <td><span class="badge ${creditsClass}">${l.credits} / ${l.max_credits}</span></td>
-      <td>${statusBadge}</td>
-      <td class="mono" style="color:#888">${l.hwid||'<span style="color:#444">-</span>'}</td>
-      <td style="max-width:150px;overflow:hidden;text-overflow:ellipsis">${l.note||'-'}</td>
+      <td class="mono" style="font-weight:700;color:#00ff88">${l.serial} <button onclick="copySerial('${l.serial}')" style="background:none;border:none;cursor:pointer;color:#666" title="نسخ">📋</button></td>
+      <td><span class="badge ${creditsClass}">${creditsText}</span></td>
+      <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis">${l.note||'<span style=color:#444>-</span>'}</td>
       <td style="font-size:11px;color:#888">${new Date(l.created_at).toLocaleDateString('ar-EG')}</td>
       <td>
         <div class="actions">
-          <button class="icon-btn" title="تاريخ" onclick="showHistory('${l.serial}')">📜</button>
-          <button class="icon-btn" title="تعديل" onclick="openEdit('${l.serial}')">✏️</button>
-          <button class="icon-btn" title="+3" onclick="quickAdd('${l.serial}',3)">+3</button>
-          <button class="icon-btn danger" title="حذف" onclick="deleteLic('${l.serial}')">🗑️</button>
+          <button class="icon-btn" onclick="openEdit('${l.serial}')">✏️ تعديل</button>
+          <button class="icon-btn danger" onclick="deleteLic('${l.serial}')">🗑️ حذف</button>
         </div>
       </td>
     </tr>`;
   }).join('');
 }
-
 function filterTable(){
   const q=document.getElementById('searchInput').value.toLowerCase();
-  const st=document.getElementById('filterStatus').value;
-  let filtered=ALL_LICENSES.filter(l=>{
-    const matchQ = !q || l.serial.toLowerCase().includes(q) || (l.note&&l.note.toLowerCase().includes(q)) || (l.hwid&&l.hwid.toLowerCase().includes(q));
-    let matchS=true;
-    if(st==='active') matchS=l.status==='active' && l.credits>0;
-    else if(st==='blocked') matchS=l.status==='blocked';
-    else if(st==='empty') matchS=l.credits===0;
-    return matchQ && matchS;
-  });
+  let filtered=ALL_LICENSES.filter(l=> !q || l.serial.toLowerCase().includes(q) || (l.note&&l.note.toLowerCase().includes(q)));
   renderTable(filtered);
 }
-
 async function createLicense(bulkCount){
-  const count = bulkCount || parseInt(document.getElementById('countInput').value)||1;
-  const credits = parseInt(document.getElementById('creditsInput').value)||3;
+  const count = bulkCount || 1;
   const serial = document.getElementById('serialInput').value.trim();
   const note = document.getElementById('noteInput').value.trim();
   const resDiv=document.getElementById('createResult');
-  resDiv.innerHTML='<div style="color:#00ff88">جاري الانشاء...</div>';
+  resDiv.innerHTML='<div style="color:#00ff88">جاري التسجيل...</div>';
   try{
-    const j= await api('/api/admin/licenses',{method:'POST', body: JSON.stringify({serial: serial||undefined, credits, max_credits: credits, note, count})});
+    const j= await api('/api/admin/licenses',{method:'POST', body: JSON.stringify({serial: serial||undefined, credits:3, max_credits:3, note, count})});
     const created=j.licenses||[j.license];
     resDiv.innerHTML=`<div style="background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);padding:12px;border-radius:8px">
-      <div style="color:#00ff88;font-weight:700">✅ تم انشاء ${created.length} سيريال</div>
-      ${created.map(l=>`<div class="mono" style="background:#000;padding:6px 10px;border-radius:6px;margin-top:6px;display:flex;justify-content:space-between;align-items:center"><span>${l.serial} — ${l.credits} كريدت</span> <button class="btn btn-ghost btn-sm" onclick="copySerial('${l.serial}')">نسخ</button></div>`).join('')}
-      <div style="font-size:11px;color:#888;margin-top:6px">السعر: ${credits} كريدت = ${credits}$ لكل سيريال</div>
+      <div style="color:#00ff88;font-weight:700">✅ تم تسجيل ${created.length} سيريال</div>
+      ${created.map(l=>`<div class="mono" style="background:#000;padding:8px 10px;border-radius:6px;margin-top:6px;display:flex;justify-content:space-between;align-items:center"><span>${l.serial} — 3 كريدت</span> <button class="btn btn-ghost btn-sm" onclick="copySerial('${l.serial}')">نسخ</button></div>`).join('')}
+      <div style="font-size:11px;color:#888;margin-top:8px">💰 سعر كل سيريال: 3$ — يستهلك 1 كريدت لكل عملية</div>
     </div>`;
-    toast(`تم انشاء ${created.length} سيريال ✅`);
-    loadAll();
+    toast(`تم تسجيل ${created.length} سيريال ✅`);
+    loadLicenses();
+    document.getElementById('serialInput').value='';
   }catch(e){ resDiv.innerHTML=`<div style="color:#ff5555">❌ ${e.message}</div>`; toast(e.message,true); }
 }
-
 function copySerial(s){ navigator.clipboard.writeText(s); toast('تم النسخ: '+s); }
-
 async function deleteLic(serial){
-  if(!confirm('هل انت متأكد من حذف '+serial+' ؟')) return;
-  try{ await api('/api/admin/licenses?serial='+encodeURIComponent(serial),{method:'DELETE'}); toast('تم الحذف'); loadAll(); }catch(e){ toast(e.message,true); }
+  if(!confirm('هل أنت متأكد من حذف السيريال:\n'+serial+' ؟')) return;
+  try{ await api('/api/admin/licenses?serial='+encodeURIComponent(serial),{method:'DELETE'}); toast('تم حذف السيريال 🗑️'); loadLicenses(); }catch(e){ toast(e.message,true); }
 }
-
-async function quickAdd(serial, n){
-  try{ await api('/api/admin/licenses',{method:'PATCH', body: JSON.stringify({serial, add_credits: n})}); toast(`تم اضافة ${n} كريدت`); loadAll(); }catch(e){ toast(e.message,true); }
-}
-
 function openEdit(serial){
   const l=ALL_LICENSES.find(x=>x.serial===serial);
   if(!l) return;
   document.getElementById('editSerial').value=l.serial;
+  document.getElementById('editSerialDisplay').value=l.serial;
   document.getElementById('editCredits').value=l.credits;
   document.getElementById('editStatus').value=l.status;
   document.getElementById('editNote').value=l.note||'';
@@ -368,34 +263,11 @@ async function saveEdit(){
   const credits=parseInt(document.getElementById('editCredits').value);
   const status=document.getElementById('editStatus').value;
   const note=document.getElementById('editNote').value;
-  try{ await api('/api/admin/licenses',{method:'PATCH', body: JSON.stringify({serial, credits, status, note})}); toast('تم الحفظ ✅'); closeModal('editModal'); loadAll(); }catch(e){ toast(e.message,true); }
+  try{ await api('/api/admin/licenses',{method:'PATCH', body: JSON.stringify({serial, credits, status, note})}); toast('تم حفظ التعديل ✅'); closeModal('editModal'); loadLicenses(); }catch(e){ toast(e.message,true); }
 }
-async function addCredits(n){
-  const serial=document.getElementById('editSerial').value;
+function addCredits(n){
   document.getElementById('editCredits').value = parseInt(document.getElementById('editCredits').value)+n;
 }
-
-async function showHistory(serial){
-  const l=ALL_LICENSES.find(x=>x.serial===serial);
-  document.getElementById('historyTitle').textContent='تاريخ: '+serial;
-  const hist=l.history||[];
-  document.getElementById('historyContent').innerHTML = hist.length? hist.slice().reverse().map(h=>`
-    <div class="history-item">
-      <div><b style="color:#ff3344">${h.operation}</b> <span style="color:#888">${h.device_id}</span><div class="mono" style="color:#666;font-size:10px">${h.hwid||''}</div></div>
-      <div style="text-align:left"><div style="color:#00ff88">${h.credits_after} كريدت</div><div style="font-size:10px;color:#666">${new Date(h.timestamp).toLocaleString('ar-EG')}</div></div>
-    </div>
-  `).join('') : '<div style="text-align:center;color:#666;padding:20px">لا يوجد سجل</div>';
-  document.getElementById('historyModal').classList.add('active');
-}
-
-function exportCSV(){
-  let csv='Serial,Credits,Max,Status,HWID,Note,Created\n';
-  ALL_LICENSES.forEach(l=>{ csv+=`"${l.serial}",${l.credits},${l.max_credits},"${l.status}","${l.hwid||''}","${(l.note||'').replace(/"/g,'""')}","${l.created_at}"\n`; });
-  const blob=new Blob([csv],{type:'text/csv'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a'); a.href=url; a.download='yaz_licenses.csv'; a.click();
-}
-
 document.getElementById('adminKeyInput').addEventListener('keydown',e=>{ if(e.key==='Enter') login(); });
 checkLogin();
 </script>

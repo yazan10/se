@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
     service: "YAZ Qualcomm OneclickTool License Server",
     developer: "YAZ",
     instagram: "https://www.instagram.com/yaz.salaqq",
-    telegram: "https://t.me/Yazunlo",
+    telegram: "https://t.me/YAZsalaq",
     version: "1.0.0",
     timestamp: new Date().toISOString(),
     vercel: !!process.env.VERCEL
