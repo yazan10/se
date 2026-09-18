@@ -48,6 +48,20 @@ tr:hover td{background:rgba(255,255,255,0.02)}
 .toast.show{display:block}
 .telegram-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(90deg,#0088cc,#00aaff);color:#fff;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none}
 .telegram-btn:hover{opacity:0.9}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:18px}
+.stat{background:linear-gradient(135deg,#161616,#111);border:1px solid #222;border-radius:12px;padding:16px;text-align:center;transition:0.2s}
+.stat:hover{border-color:#333;transform:translateY(-1px)}
+.stat .label{font-size:11px;color:#888;margin-bottom:6px}
+.stat .value{font-size:22px;font-weight:900;color:#fff}
+.stat .sub{font-size:10px;color:#666}
+.stat.active{border-color:rgba(0,255,136,0.15)}
+.stat.active .value{color:#00ff88}
+.stat.warn{border-color:rgba(255,170,0,0.15)}
+.stat.warn .value{color:#ffaa00}
+.stat.danger{border-color:rgba(255,50,50,0.15)}
+.stat.danger .value{color:#ff3344}
+.stat.revenue{border-color:rgba(0,170,255,0.15)}
+.stat.revenue .value{color:#00aaff}
 </style>
 </head>
 <body>
@@ -74,6 +88,16 @@ tr:hover td{background:rgba(255,255,255,0.02)}
 </div>
 
 <div class="container">
+
+  <!-- مربعات التحليل -->
+  <div class="stats" id="statsGrid">
+    <div class="stat"><div class="label">📦 إجمالي السيريالات</div><div class="value" id="stTotal">-</div><div class="sub">المسجلة</div></div>
+    <div class="stat active"><div class="label">✅ نشطة</div><div class="value" id="stActive">-</div><div class="sub">كريدت > 0</div></div>
+    <div class="stat danger"><div class="label">⛔ منتهية</div><div class="value" id="stEmpty">-</div><div class="sub">0 كريدت</div></div>
+    <div class="stat"><div class="label">💳 الكريدت المتبقي</div><div class="value" id="stRemain">-</div><div class="sub">كريدت</div></div>
+    <div class="stat warn"><div class="label">🔥 المستهلك</div><div class="value" id="stUsed">-</div><div class="sub">كريدت</div></div>
+    <div class="stat revenue"><div class="label">💰 الأرباح</div><div class="value" id="stRevenue">-</div><div class="sub">دولار (3$ لكل سيريال)</div></div>
+  </div>
 
   <!-- تسجيل سيريال جديد - مبسط -->
   <div class="card">
@@ -196,7 +220,33 @@ async function loadLicenses(){
     ALL_LICENSES=j.licenses||[];
     document.getElementById('countLabel').textContent = ALL_LICENSES.length + ' سيريال';
     renderTable(ALL_LICENSES);
+    loadStats();
   }catch(e){ toast(e.message, true); }
+}
+async function loadStats(){
+  try{
+    const j= await api('/api/admin/stats');
+    const s=j.stats;
+    document.getElementById('stTotal').textContent=s.total_licenses;
+    document.getElementById('stActive').textContent=s.active;
+    document.getElementById('stEmpty').textContent=s.empty;
+    document.getElementById('stRemain').textContent=s.totalCredits;
+    document.getElementById('stUsed').textContent=s.used;
+    document.getElementById('stRevenue').textContent='$'+(s.total_licenses*3);
+  }catch(e){
+    // fallback حساب محلي
+    const total=ALL_LICENSES.length;
+    const active=ALL_LICENSES.filter(l=>l.credits>0 && l.status==='active').length;
+    const empty=ALL_LICENSES.filter(l=>l.credits===0).length;
+    const remain=ALL_LICENSES.reduce((s,l)=>s+(l.credits||0),0);
+    const max=ALL_LICENSES.reduce((s,l)=>s+(l.max_credits||0),0);
+    document.getElementById('stTotal').textContent=total;
+    document.getElementById('stActive').textContent=active;
+    document.getElementById('stEmpty').textContent=empty;
+    document.getElementById('stRemain').textContent=remain;
+    document.getElementById('stUsed').textContent=max-remain;
+    document.getElementById('stRevenue').textContent='$'+(total*3);
+  }
 }
 function renderTable(list){
   const tbody=document.getElementById('licBody');
